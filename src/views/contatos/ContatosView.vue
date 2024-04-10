@@ -1,20 +1,17 @@
 <template>
     <div>
-        <h3 class="font-weight-light">Contatos</h3>
-        <button class="btn btn-secondary mb-4 me-4" @click="voltar">Voltar</button>
+        <ContatosLista />
+        <router-view></router-view>
     </div>
 </template>
 
 <script>
+
+import ContatosLista from '@/components/contatos/ContatosLista.vue'
+
 export default {
-    methods: {
-        voltar () {
-            // this.$router.push('/')
-            // this.$router.replace('/')
-            // this.$router.go(1)
-            // this.$router.forward()
-            this.$router.back()
-        }
-    }
+    components: {
+        ContatosLista
+    }    
 }
 </script>

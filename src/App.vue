@@ -8,13 +8,13 @@
     <div class="container">
       <router-link 
         to="/"
-        class="btn btn-info mb-2 me-2"
+        class="btn btn-info mb-4 me-2"
         exact>
           Home
       </router-link>
       <router-link 
         :to="{ path: '/contatos'}"
-        class="btn btn-info mb-2 me-2">
+        class="btn btn-info mb-4 me-2">
           Contatos
       </router-link>
       <router-view></router-view>

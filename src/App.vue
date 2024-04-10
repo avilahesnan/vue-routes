@@ -7,7 +7,7 @@
 
     <div class="container">
       <router-link 
-        to="/"
+        to="/home"
         class="btn btn-info mb-4 me-2"
         exact>
           Home

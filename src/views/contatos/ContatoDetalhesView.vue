@@ -1,5 +1,12 @@
 <template>
-    <h3 class="font-weigth-ligth">Detalhes sobre o contato com id: {{ id }}</h3>
+    <div>
+        <h3 class="font-weight-light">Detalhes sobre o contato com id: {{ id }}</h3>
+        <router-link
+            class="btn btn-primary"
+            :to="`/contatos/${id}/editar`">
+                Editar
+        </router-link>
+    </div>
 </template>
 
 <script>

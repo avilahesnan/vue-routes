@@ -11,6 +11,10 @@
 
 <script>
 export default {
-    props: ['id']
+    props: ['id'],
+    beforeRouteUpdate (to, from, next) {
+        console.log('beforeRouteUpdate')
+        next()
+    }
 }
 </script>

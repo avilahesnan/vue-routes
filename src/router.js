@@ -13,7 +13,7 @@ Vue.use(VueRouter)
 
 const extrairParamsId = (route) => ({ id: +route.params.id })
 
-export default new VueRouter({
+const router = new VueRouter({
   mode: 'history',
   linkActiveClass: 'active',
   routes: [
@@ -38,6 +38,15 @@ export default new VueRouter({
         },
         { 
           path: ':id(\\d+)/editar',
+          meta: { requerAuth: true },
+          beforeEnter (to, from, next) {
+            console.log('beforeEnter')
+            next()
+            // next(true)
+            // next(false)
+            // next('/contatos')
+            // next({ name: 'contatos' })
+          },
           components: {
             default: ContatoEditarView,
             'contato-detalhes': ContatoDetalhesView
@@ -68,3 +77,20 @@ export default new VueRouter({
     }
   ]
 })
+
+router.beforeEach((to, from, next) => {
+  console.log('beforeEach')
+  console.log('Requer Auth?', to.meta.requerAuth)
+  next()
+})
+
+router.beforeResolve((to, from, next) => {
+  console.log('beforeResolve')
+  next()
+})
+
+router.afterEach(() => {
+  console.log('afterEach')
+})
+
+export default router

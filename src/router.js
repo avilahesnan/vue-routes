@@ -1,13 +1,15 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import EventBus from './event-bus.js'
 
-import HomeView from './views/HomeView.vue'
-import Erro404View from './views/Erro404View.vue'
-import Erro404ContatoView from './views/contatos/Erro404ContatoView.vue'
-import ContatosView from './views/contatos/ContatosView'
-import ContatoDetalhesView from './views/contatos/ContatoDetalhesView'
-import ContatosHomeView from './views/contatos/ContatosHomeView'
-import ContatoEditarView from './views/contatos/ContatoEditarView'
+const HomeView = () => import('./views/HomeView.vue')
+const LoginView = () => import('./views/login/LoginView.vue')
+const Erro404View = () => import('./views/Erro404View.vue')
+const Erro404ContatoView = () => import('./views/contatos/Erro404ContatoView.vue')
+const ContatosView = () => import(/* webpackChunkName: "contatos" */'./views/contatos/ContatosView')
+const ContatosHomeView = () => import(/* webpackChunkName: "contatos" */'./views/contatos/ContatosHomeView')
+const ContatoDetalhesView = () => import(/* webpackChunkName: "contatos" */'./views/contatos/ContatoDetalhesView')
+const ContatoEditarView = () => import(/* webpackChunkName: "contatos" */'./views/contatos/ContatoEditarView')
 
 Vue.use(VueRouter)
 
@@ -21,6 +23,10 @@ const router = new VueRouter({
       path: '/home',
       component: HomeView,
       alias: '/index'
+    },
+    {
+      path: '/login',
+      component: LoginView
     },
     { 
       path: '/contatos',
@@ -81,6 +87,15 @@ const router = new VueRouter({
 router.beforeEach((to, from, next) => {
   console.log('beforeEach')
   console.log('Requer Auth?', to.meta.requerAuth)
+  const estaAutenticado = EventBus.autenticado
+  if(to.matched.some(rota => rota.meta.requerAuth)) {
+    if(!estaAutenticado) {
+      next({
+        path: '/login',
+        query: { redirecionar: to.fullPath }
+      })
+    }
+  }
   next()
 })
 
